@@ -66,6 +66,19 @@ git clone https://github.com/yomihime/astrbot_plugin_biliread.git
 3. **音频转写失败：显示“Precondition Failed”**
    说明你可能忘记了登录，或者系统并没有成功识别出环境中的 `ffmpeg`，请检查依赖是否正常部署。
 
+## 📦 本地打包与发布
+
+在仓库目录执行 `python scripts/build.py`，即可在 `dist/` 生成插件 ZIP、SHA-256 校验文件和本版本的 Release 说明。ZIP 内只有安装所需的插件文件，不包含测试、工作流或本地数据。Windows 也可使用 `py -3 scripts/build.py`。
+
+发布新版本时，先同步修改 `metadata.yaml` 与 `main.py` 中 `@register` 的版本号，并在 `CHANGELOG.md` 增加对应版本小节。提交这些改动后创建并推送同名 tag，例如：
+
+```bash
+git tag v1.3.0
+git push origin v1.3.0
+```
+
+`.github/workflows/tag-build.yml` 仅在推送版本 tag 时运行。它会检查 tag 与插件版本一致、tag 提交位于 `master` 历史中，随后构建 ZIP、校验哈希，并将文件同时保存为 Actions 产物和 GitHub Release 附件。
+
 ## 📜 开源协议
 
 AGPL-3.0 license

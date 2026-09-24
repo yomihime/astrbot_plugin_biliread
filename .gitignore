@@ -210,3 +210,4 @@ __marimo__/
 gha-creds-*.json
 data/
 *.zip
+dist/

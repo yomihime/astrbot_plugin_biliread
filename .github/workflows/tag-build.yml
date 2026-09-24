@@ -1,0 +1,49 @@
+name: Build plugin on tag
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out tag
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Require tag commit on master
+        run: git merge-base --is-ancestor HEAD origin/master
+
+      - name: Build and verify package
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          python3 scripts/build.py --tag "$RELEASE_TAG"
+          cd dist
+          sha256sum -c "astrbot_plugin_biliread-${RELEASE_TAG}.sha256"
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: astrbot_plugin_biliread-${{ github.ref_name }}
+          path: |
+            dist/*.zip
+            dist/*.sha256
+          if-no-files-found: error
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: BiliRead ${{ github.ref_name }}
+          body_path: dist/release-notes.md
+          files: |
+            dist/*.zip
+            dist/*.sha256
+          fail_on_unmatched_files: true
