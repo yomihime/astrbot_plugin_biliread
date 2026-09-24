@@ -2,7 +2,7 @@
 __pycache__/
 *.py[codz]
 *$py.class
-
+astrbot_plugin_biliVideo/
 # C extensions
 *.so
 
@@ -208,3 +208,5 @@ __marimo__/
 
 .qwen/
 gha-creds-*.json
+data/
+*.zip
