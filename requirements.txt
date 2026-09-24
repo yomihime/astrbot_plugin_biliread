@@ -1,1 +1,4 @@
 bilibili-api-python
+yt-dlp
+requests
+segno

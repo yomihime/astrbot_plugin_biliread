@@ -1,6 +1,6 @@
 name: astrbot_plugin_biliread
 display_name: BiliRead - 让 AI 理解 B 站视频
-desc: 让 AI 理解 B 站视频，并给出符合人设的自然回复
-version: v1.2.0
-author: SodaCode & CodeBuddy & GLM-5
-repo: https://github.com/SodaCodeSave/astrbot_plugin_biliread
+desc: 读取 B 站视频字幕并生成总结；无字幕时支持音频转写。基于 SodaCodeSave 原版及 Rei 二开版。
+version: v1.3.0
+author: SodaCodeSave, Rei, yomihime
+repo: https://github.com/yomihime/astrbot_plugin_biliread

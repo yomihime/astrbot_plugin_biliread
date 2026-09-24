@@ -5,19 +5,38 @@
         "type": "string",
         "_special": "select_provider"
     },
-    "bilibili_cookie": {
-        "description": "B站Cookie",
-        "hint": "README有详细的获取教程，快去看看罢",
-        "type": "object",
-        "items": {
-            "sessdata": {
-                "description": "sessdata",
-                "type": "string"
-            },
-            "id": {
-                "description": "bili_jct",
-                "type": "string"
-            }
-        }
+    "admin_id": {
+        "description": "管理员ID",
+        "type": "string",
+        "default": "",
+        "hint": "填入管理员的QQ账号。用于执行敏感命令（如 /B站总结 开关）。"
+    },
+    "enable_summary": {
+        "description": "启用 B 站视频总结功能",
+        "type": "bool",
+        "default": true,
+        "hint": "全局开关。也可以使用指令 /B站总结 快速切换。"
+    },
+    "enable_audio_fallback": {
+        "description": "无字幕时启用音频转写",
+        "type": "bool",
+        "default": true,
+        "hint": "当视频没有字幕时，自动下载音频并通过B站必剪ASR转写为文字再进行总结。需要先通过 /B站登录 扫码登录，且系统安装了 ffmpeg。可以使用指令 /B站转写 快速切换。"
+    },
+    "max_audio_duration": {
+        "description": "音频转写最大视频时长（秒）",
+        "type": "int",
+        "default": 1800,
+        "min": 60,
+        "max": 21600,
+        "hint": "仅限制无字幕时的音频转写。超过此时长的视频仍可使用字幕总结，但不会下载整段音频。默认 1800 秒（30 分钟）。"
+    },
+    "max_subtitle_length": {
+        "description": "字幕/转写文本最大长度",
+        "type": "int",
+        "default": 4000,
+        "min": 500,
+        "max": 20000,
+        "hint": "字幕或转写文本的最大字符数，超过将自动截断（防止LLM上下文溢出）"
     }
 }
